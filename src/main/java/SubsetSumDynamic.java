@@ -4,7 +4,7 @@ public class SubsetSumDynamic implements SubsetSum {
         boolean[][] table = new boolean[set.length+1][k+1];
 
         for (int i = 1; i <= k; i++)
-            table[1][i] = set[0] == i+1;
+            table[1][i] = set[0] == i;
 
 
         for (int i = 2; i <= set.length; i++) {
@@ -16,10 +16,10 @@ public class SubsetSumDynamic implements SubsetSum {
             }
         }
 
-        for (int i = 0; i < set.length; i++) {
-            for (int j = 0; j < k; j++) {
-                System.out.println(table[i][j]);
-            }
+        for (int i = 1; i <= set.length; i++) {
+            for (int j = 1; j <= k; j++)
+                System.out.print(table[i][j] + " ");
+            System.out.println();
         }
 
         return table[set.length][k];
