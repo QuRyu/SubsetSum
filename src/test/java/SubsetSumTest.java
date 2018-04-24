@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class SubsetSumTest {
@@ -28,6 +29,7 @@ public class SubsetSumTest {
     }
 
 
+    // test if the helper method is working correctly
     @Test
     public void generateSubsetsTest() {
         assertEquals(64, testSetSubSets1.size());
@@ -37,11 +39,16 @@ public class SubsetSumTest {
     public void isSumPresentest() {
         for (SubsetSum sum :
                 finders) {
+            // test all combinations of a given set
             for (List<Integer> list:
                     testSetSubSets1){
                 assertTrue("expecting " + sumList(list) + ", with list " + list.toString(),
                         sum.isSumPresent(sumList(list), toIntArr(list)));
             }
+
+            // test empty set
+            assertFalse(sum.isSumPresent(1, new int[0]));
+            assertTrue(sum.isSumPresent(0, new int[0]));
 
         }
 
