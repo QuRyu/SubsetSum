@@ -21,6 +21,7 @@ public class SubsetSumTest {
     public void initialize() {
         finders = new ArrayList<SubsetSum>();
         finders.add(new SubsetSumDynamic());
+        finders.add(new SubsetSumExhaustive());
 
         testSetSubSets1 = new ArrayList<List<Integer>>();
         generateSubsets(testSetSubSets1, testSet1, testSet1.length);
@@ -65,8 +66,8 @@ public class SubsetSumTest {
 
     private int sumList(List<Integer> list) {
         int sum = 0;
-        for (int i = 0; i < list.size(); i++) {
-            sum += list.get(i);
+        for (Integer aList : list) {
+            sum += aList;
         }
         return sum;
     }
