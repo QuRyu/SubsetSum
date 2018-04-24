@@ -1,7 +1,8 @@
 public class SubsetSumDynamic implements SubsetSum {
 
     public boolean isSumPresent(int k, int[] set) {
-        boolean[][] table = new boolean[set.length][Math.abs(k)];
+        boolean[][] table = new boolean[2][k];
+        int curRow = 0;
 
         if ((set.length == 0 && k == 0)
                 || k == 0)
@@ -12,17 +13,23 @@ public class SubsetSumDynamic implements SubsetSum {
         for (int i = 0; i < k; i++)
             table[0][i] = set[0] == (i+1);
 
-
         for (int i = 1; i < set.length; i++) {
+            int preRow = curRow;
+            curRow = rotateRow(curRow);
+
             for (int j = 0; j < k; j++) {
-                table[i][j] = table[i-1][j] || (set[i] == (j+1));
+                table[curRow][j] = table[preRow][j] || (set[i] == (j+1));
 
                 if (j >= set[i])
-                    table[i][j] = table[i][j] || table[i-1][j-set[i]];
+                    table[curRow][j] = table[curRow][j] || table[preRow][j-set[i]];
             }
         }
 
-        return table[set.length-1][Math.abs(k)-1];
+        return table[curRow][k-1];
+    }
+
+    public int rotateRow(int curRow) {
+        return (curRow+1) % 2;
     }
 
     public static void main(String[] args) {
