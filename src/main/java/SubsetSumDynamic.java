@@ -1,12 +1,13 @@
 public class SubsetSumDynamic implements SubsetSum {
 
     public boolean isSumPresent(int k, int[] set) {
-        // TODO: 4/22/18 add guard against cases when set is empty or k is 0
-        boolean[][] table = new boolean[set.length+1][k+1];
+        boolean[][] table = new boolean[set.length][Math.abs(k)];
 
-        if ((set.length == 0 && k != 0)
+        if ((set.length == 0 && k == 0)
                 || k == 0)
             return true;
+        else if (set.length == 0) // guaranteed that k != 0
+            return false;
 
         for (int i = 0; i < k; i++)
             table[0][i] = set[0] == (i+1);
@@ -21,7 +22,7 @@ public class SubsetSumDynamic implements SubsetSum {
             }
         }
 
-        return table[set.length-1][k-1];
+        return table[set.length-1][Math.abs(k)-1];
     }
 
     public static void main(String[] args) {
