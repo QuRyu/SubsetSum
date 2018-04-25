@@ -111,17 +111,18 @@ public class Annealing {
 
 		for (int i=0; i<iteration; i++) {
 			//save the smallest residue of all current subsets
-			if (getResidue(current) < smallest_r) {
+			if (Math.abs(getResidue(current)) < Math.abs(smallest_r)) {
 				smallest_r = getResidue(current);
 			}
 			long[] neighbor = generateRandomNeighbor(originalList, current);
 
 			//If the neighbor has smaller residue, then make it the current subset.
-			if (getResidue(neighbor) < getResidue(current)) {
+			if (Math.abs(getResidue(neighbor)) < Math.abs(getResidue(current))) {
 				current = neighbor;
 			} else {
 				//If the neighbor has larger or equal residue, then with probability e-T, make it the current subset.
-				long probability = (getResidue(neighbor) - getResidue(current)) / (long)(Math.pow(10,11) * Math.pow(0.8,i/300));
+				long exponentT = (getResidue(neighbor) - getResidue(current)) / (long)(Math.pow(10,11) * Math.pow(0.8,i/300));
+				long probability = (long)Math.exp(-exponentT);
 				//System.out.print("prob:" + probability);
 				if (probability >= 0.05) {
 					current = neighbor;
