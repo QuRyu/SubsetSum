@@ -6,7 +6,7 @@ import java.lang.Math;
 
 public class Annealing {
 
-	//instructor
+	//constructor
 	public Annealing(){
 		System.out.println("This is the Simulated Annealing Algorithm: \n");
 	}

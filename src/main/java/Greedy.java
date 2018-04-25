@@ -7,7 +7,7 @@ import java.lang.Math;
 
 public class Greedy {
 
-	//Instructor
+	//constructor
 	public Greedy() {
 		System.out.println("This is the Greedy Algorithm: \n");
 	}
