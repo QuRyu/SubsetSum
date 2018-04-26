@@ -6,7 +6,7 @@
 public class SubsetSumDynamic implements SubsetSum {
 
     // TODO: 4/26/18 add documentation that dynamic version cannot handle long
-    public long subSubSum(long k, long[] set,  long iteration) {
+    public long subSubSum(long k, long[] set,  int iteration) {
         if (isSumPresent((int)k, set))
             return 0;
         else

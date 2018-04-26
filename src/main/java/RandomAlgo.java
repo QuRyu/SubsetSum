@@ -10,7 +10,7 @@ public class RandomAlgo implements SubsetSum{
   private long min_residue;
   private long[] bestlst;
 
-  public long subSubSum(long target, long[] list, long num){
+  public long subSubSum(long target, long[] list, int num){
     min_residue = Long.MAX_VALUE;
     bestlst = new long[list.length];
     // loop num times

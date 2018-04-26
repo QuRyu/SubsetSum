@@ -15,7 +15,7 @@ import java.util.List;
 
 public class SubsetSumExhaustive implements SubsetSum {
 
-    public long subSubSum(long k, long[] set, long iteration) {
+    public long subSubSum(long k, long[] set, int iteration) {
         List<List<Long>> subsets = new ArrayList<List<Long>>();
         isSumPresentHelper(subsets, set, set.length, k);
         long residue = Long.MAX_VALUE;

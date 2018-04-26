@@ -2,13 +2,12 @@
 // HillClimbing Algorithm
 // This algorithm repeatedly chooses a random subset of S and checks its residue.
 // It keeps track of the smallest residue it found as it is doing so.
+import java.util.Arrays;
 import java.util.Random;
-import java.io.*;
-import java.util.*;
 
 public class HillClimbing implements SubsetSum {
 
-    public long subSubSum(long k, long[] set, long iteration) {
+    public long subSubSum(long k, long[] set, int iteration) {
       long min_residue = Long.MAX_VALUE;
       long[] sublist;
 
