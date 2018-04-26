@@ -6,17 +6,16 @@ import java.util.Random;
 import java.lang.*;
 import java.util.Arrays;
 
-public class RandomAlgo{
+public class RandomAlgo implements SubsetSum{
   private long min_residue;
   private long[] bestlst;
 
-  public RandomAlgo(long[] list, long target, int num){
+  public long subSubSum(long target, long[] list, long num){
     min_residue = Long.MAX_VALUE;
     bestlst = new long[list.length];
     // loop num times
     for (int i = 0; i < num; i++){
       long[] sublist;
-
 
       // create a random sublist
       sublist = new long[list.length];
@@ -43,23 +42,20 @@ public class RandomAlgo{
         bestlst = sublist;
       }
     }
-    System.out.println("Best list:" + Arrays.toString(bestlst));
-  }
-
-  public long getResidue(){
     return min_residue;
   }
+
 
   public static void main(String[] args){
     long[] list;
     list = new long[]{1,3,4,2,6,9,10,24,11,23,25,28,29,30,34,99};
     long target = 100;
     int num = 100;
-    RandomAlgo test = new RandomAlgo(list, target, num);
+    SubsetSum test = new RandomAlgo();
 
     System.out.println("Input list: " + Arrays.toString(list));
     System.out.println("Target Sum: " + target);
-    System.out.println("Minimum Residue: " + test.getResidue());
+    System.out.println("Minimum Residue: " + test.subSubSum(target, list, num));
   }
 
 }

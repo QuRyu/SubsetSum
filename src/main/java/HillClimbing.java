@@ -3,6 +3,8 @@
 // This algorithm repeatedly chooses a random subset of S and checks its residue.
 // It keeps track of the smallest residue it found as it is doing so.
 import java.util.Random;
+import java.io.*;
+import java.util.*;
 
 public class HillClimbing implements SubsetSum {
 
@@ -87,16 +89,16 @@ public class HillClimbing implements SubsetSum {
       return min_residue;
     }
 
-  //public static void main(String[] args){
-  //  long[] list;
-  //  list = new long[]{1,3,4,2,6,9,10,24,11,23,25,28,29,30,34,99};
-  //  long target = 100;
-  //  int num = 10;
-  //  HillClimbing test = new HillClimbing(list, target, num);
+  public static void main(String[] args){
+    long[] list;
+    list = new long[]{1,3,4,2,6,9,10,24,11,23,25,28,29,30,34,99};
+    long target = 100;
+    int num = 10;
+    SubsetSum test = new HillClimbing();
 
-  //  System.out.println("Input list: " + Arrays.toString(list));
-  //  System.out.println("Target Sum: " + target);
-  //  System.out.println("Minimum Residue: " + test.getResidue());
-  //}
+    System.out.println("Input list: " + Arrays.toString(list));
+    System.out.println("Target Sum: " + target);
+    System.out.println("Minimum Residue: " + test.subSubSum(target, list, num));
+  }
 
 }
