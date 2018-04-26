@@ -4,7 +4,7 @@
 import java.lang.Math;
 
 
-public class Annealing {
+public class Annealing implements SubsetSum{
 
 	//implement interface
 	public long subSubSum(long k, long[] arr, int iteration){
