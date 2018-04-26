@@ -14,31 +14,34 @@ import java.util.List;
  */
 
 public class SubsetSumExhaustive implements SubsetSum {
-    public boolean isSumPresent(int k, int[] set) {
-        List<List<Integer>> subsets = new ArrayList<List<Integer>>();
-        isSumPresentHelper(subsets, set, set.length, k);
 
-        for (List<Integer> subset :
+    public long subSubSum(long k, long[] set, long iteration) {
+        List<List<Long>> subsets = new ArrayList<List<Long>>();
+        isSumPresentHelper(subsets, set, set.length, k);
+        long residue = Long.MAX_VALUE;
+
+        for (List<Long> subset :
                 subsets) {
-            if (sumList(subset) == k)
-                return true;
+            long curResidue = Math.abs(sumList(subset) - k);
+            if (curResidue < residue)
+                residue = curResidue;
         }
-        return false;
+        return residue;
     }
 
-    private void isSumPresentHelper(List<List<Integer>> subsets, int[] set, int n, int k) {
+    private void isSumPresentHelper(List<List<Long>> subsets, long[] set, int n, long k) {
         if (n == 0) {
-            subsets.add(new ArrayList<Integer>());
+            subsets.add(new ArrayList<Long>());
         } else {
             isSumPresentHelper(subsets, set, n-1, k);
 
             if (set[n-1] > k)
                 return;
 
-            List<Integer> result;
+            List<Long> result;
             int len = subsets.size();
             for (int i = 0; i < len; i++) {
-                result = new ArrayList<Integer>(subsets.get(i));
+                result = new ArrayList<Long>(subsets.get(i));
                 result.add(set[n-1]);
                 if (sumList(result) <= k)
                     subsets.add(result);
@@ -46,9 +49,9 @@ public class SubsetSumExhaustive implements SubsetSum {
         }
     }
 
-    private int sumList(List<Integer> list) {
-        int sum = 0;
-        for (Integer i :
+    private long sumList(List<Long> list) {
+        long sum = 0;
+        for (Long i :
                 list) {
             sum += i;
         }

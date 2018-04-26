@@ -5,9 +5,17 @@
 // current and previous row. All other rows do not need to be stored
 public class SubsetSumDynamic implements SubsetSum {
 
+    // TODO: 4/26/18 add documentation that dynamic version cannot handle long
+    public long subSubSum(long k, long[] set,  long iteration) {
+        if (isSumPresent((int)k, set))
+            return 0;
+        else
+            return -1;
+    }
+
     // the public method to solve the subset sum problem
-    public boolean isSumPresent(int k, int[] set) {
-        boolean[][] table = new boolean[2][k];
+    private boolean isSumPresent(int k, long[] set) {
+        boolean[][] table = new boolean[2][(int)k];
         int curRow = 0; // points to the current row the method is manipulating over
 
         // precondition check
@@ -29,7 +37,7 @@ public class SubsetSumDynamic implements SubsetSum {
                 table[curRow][j] = table[preRow][j] || (set[i] == (j+1));
 
                 if (j >= set[i]) // a check to prevent ArrayOutOfBounds exception
-                    table[curRow][j] = table[curRow][j] || table[preRow][j-set[i]];
+                    table[curRow][j] = table[curRow][j] || table[preRow][(int)(j-set[i])];
             }
         }
 
@@ -47,10 +55,10 @@ public class SubsetSumDynamic implements SubsetSum {
         int n = set.length;
         SubsetSumDynamic algo = new SubsetSumDynamic();
 
-        if (algo.isSumPresent(sum, set))
-            System.out.println("Found a subset with given sum");
-        else
-            System.out.println("the algorithm is not correct");
+       // if (algo.isSumPresent(sum, set))
+       //     System.out.println("Found a subset with given sum");
+       // else
+       //     System.out.println("the algorithm is not correct");
     }
 
 }
