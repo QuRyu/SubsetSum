@@ -5,23 +5,19 @@
 
 import java.lang.Math;
 
-public class Greedy {
+public class Greedy implements SubsetSum {
 
-	//constructor
-	public Greedy() {
-		System.out.println("This is the Greedy Algorithm: \n");
-	}
-
-	//takes a random long array
-	public static long Greedy(long[] randomArr){
-		long[] subset = new long[randomArr.length];
-		long[] sortedArr = sort(randomArr, 0, randomArr.length-1);
-		long residue = findResidue(sortedArr);
-		return residue;
+	//implement interface
+	public long subSubSum(long k, long[] randomArr, int iteration) {
+		// System.out.println("This is the Greedy Algorithm: \n");
+        long[] subset = new long[randomArr.length];
+        long[] sortedArr = sort(randomArr, 0, randomArr.length-1);
+        long residue = findResidue(sortedArr);
+        return residue;
 	}
 
 	//generate list of 100 random numbers from 1 to 10^12
-	public static long[] generateRandomList(int num){
+	private long[] generateRandomList(int num){
 		long[] list = new long[num];
 		long leftLimit = 1;
 		long rightLimit = (long) Math.pow(10,12);
@@ -34,7 +30,7 @@ public class Greedy {
 	}
 
 	//print out the list
-	public static void printList(long[] list){
+	private void printList(long[] list){
 		for (int i=0; i<list.length ;i++ ) {
 			System.out.print(i + ": " + list[i] + "\n");
 		}
@@ -42,7 +38,7 @@ public class Greedy {
 	}
 
 	//merge sort for long list from largest to smallest
-	public static void merge(long arr[], int l, int m, int r){
+	private void merge(long arr[], int l, int m, int r){
         // Find sizes of two subarrays to be merged
         int n1 = m - l + 1;
         int n2 = r - m;
@@ -85,7 +81,7 @@ public class Greedy {
     }
  
    //main sort function
-    public static long[] sort(long[] arr, int l, int r){
+    private long[] sort(long[] arr, int l, int r){
         if (l < r) {
             // Find the middle point
             int m = (l+r)/2;
@@ -98,7 +94,7 @@ public class Greedy {
         return arr;
     }
 
-    public static long findSum(long[] arr){
+    private long findSum(long[] arr){
     	long sum = 0;
     	for (int i=0; i<arr.length; i++ ) {
     		sum += arr[i];
@@ -107,7 +103,7 @@ public class Greedy {
     }
  	
 	//find residue
-    public static long findResidue(long[] arr){
+    private long findResidue(long[] arr){
     	long target = (long)(25*Math.pow(10,12));
     	long[] subset = new long[arr.length];
     	//repeatedly adding elements to the subset
@@ -131,36 +127,43 @@ public class Greedy {
     //test function
 	public static void main(String args[]){
         
-        System.out.print(Math.random());
-        System.out.println();
+        // System.out.print(Math.random());
+        // System.out.println();
         
-        //test random list
+        // //test random list
+        // Greedy greedy = new Greedy();
+        // //step one: generate random list
+        // // long[] list = greedy.generateRandomList(100);
+        // //greedy.printList(list);
+
+        // //test merge sort
+        // long[] arr = greedy.generateRandomList(100);
+        // System.out.println("Random List:");
+        // greedy.printList(arr);
+        // long[] sortedArr = greedy.sort(arr,0,arr.length-1);
+        // System.out.println("Sorted List:");
+        // greedy.printList(sortedArr);
+
+        // //test find sum
+        // System.out.println("Sum of Sorted List:");
+        // System.out.print(greedy.findSum(sortedArr)+"\n");
+
+        // //test finding subset
+        // long residue = greedy.findResidue(sortedArr);
+        // System.out.println("Residue:");
+        // System.out.print(residue + "\n");
+
+        // //test
+        // long residue2 = Greedy(arr);
+        // System.out.println("Residue2:");
+        // System.out.print(residue2 + "\n");
+
         Greedy greedy = new Greedy();
-        //step one: generate random list
-        // long[] list = greedy.generateRandomList(100);
-        //greedy.printList(list);
+        long[] list = greedy.generateRandomList(100);
+        long k_value = (long)(25*Math.pow(10,12));
+        long residue = greedy.subSubSum(k_value, list, 100 );
+        System.out.print("Residue: " + residue + "\n");
 
-        //test merge sort
-        long[] arr = greedy.generateRandomList(100);
-        System.out.println("Random List:");
-        greedy.printList(arr);
-        long[] sortedArr = greedy.sort(arr,0,arr.length-1);
-        System.out.println("Sorted List:");
-        greedy.printList(sortedArr);
-
-        //test find sum
-        System.out.println("Sum of Sorted List:");
-        System.out.print(greedy.findSum(sortedArr)+"\n");
-
-        //test finding subset
-        long residue = greedy.findResidue(sortedArr);
-        System.out.println("Residue:");
-        System.out.print(residue + "\n");
-
-        //test
-        long residue2 = Greedy(arr);
-        System.out.println("Residue2:");
-        System.out.print(residue2 + "\n");
      
     }
 
