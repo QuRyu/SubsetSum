@@ -1,26 +1,34 @@
+// Author: Qingbo Liu
+// Implementation of the dynamic programming version of the subset problem;
+// optimized by using a 2-dimension array of length 2*k: the observation behind
+// this optimization is that the recurrence relation only uses the information from
+// current and previous row. All other rows do not need to be stored
 public class SubsetSumDynamic implements SubsetSum {
 
+    // the public method to solve the subset sum problem
     public boolean isSumPresent(int k, int[] set) {
         boolean[][] table = new boolean[2][k];
-        int curRow = 0;
+        int curRow = 0; // points to the current row the method is manipulating over
 
-        if ((set.length == 0 && k == 0)
-                || k == 0)
+        // precondition check
+        if (k == 0)  // desired sum of 0 is always trivially satisfied by an empty set
             return true;
-        else if (set.length == 0) // guaranteed that k != 0
+        else if (set.length == 0) // guaranteed that k != 0 and therefore the answer must be false
             return false;
 
+        // initialize the first row
         for (int i = 0; i < k; i++)
             table[0][i] = set[0] == (i+1);
 
+
         for (int i = 1; i < set.length; i++) {
-            int preRow = curRow;
+            int preRow = curRow; // the index of the previous row from which the method extracts information to build the current row
             curRow = rotateRow(curRow);
 
             for (int j = 0; j < k; j++) {
                 table[curRow][j] = table[preRow][j] || (set[i] == (j+1));
 
-                if (j >= set[i])
+                if (j >= set[i]) // a check to prevent ArrayOutOfBounds exception
                     table[curRow][j] = table[curRow][j] || table[preRow][j-set[i]];
             }
         }
@@ -28,6 +36,7 @@ public class SubsetSumDynamic implements SubsetSum {
         return table[curRow][k-1];
     }
 
+    // change the index of row to one whose information can be discarded now
     public int rotateRow(int curRow) {
         return (curRow+1) % 2;
     }

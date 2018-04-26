@@ -1,5 +1,8 @@
 /**
  * Author: Qingbo Liu
+ *
+ * It tests the implementation by generating all subsets of a specific set and sees if the
+ * implementation will yield true for all values.
  */
 
 import org.junit.Before;
@@ -35,6 +38,7 @@ public class SubsetSumTest {
         assertEquals(64, testSetSubSets1.size());
     }
 
+    // main entry for testing the implementation
     @Test
     public void isSumPresentest() {
         for (SubsetSum sum :
