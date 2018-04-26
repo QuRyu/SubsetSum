@@ -21,7 +21,7 @@ public class Annealing implements SubsetSum{
 	// }
 
 	//generate list of 100 random numbers from 1 to 10^12
-	public static long[] generateRandomList(int num){
+	private long[] generateRandomList(int num){
 		long[] list = new long[num];
 		long leftLimit = 1;
 		long rightLimit = (long) Math.pow(10,12);
@@ -34,7 +34,7 @@ public class Annealing implements SubsetSum{
 	}
 
 	//print out the list
-	public static void printList(long[] list){
+	private void printList(long[] list){
 		for (int i=0; i<list.length ;i++ ) {
 			System.out.print(i + ": " + list[i] + "\n");
 		}
@@ -43,7 +43,7 @@ public class Annealing implements SubsetSum{
 
 	
 	//Choose a random subset of S as the current subset.
-	public static long[] generateRandomSubset(long[] originalList){
+	private long[] generateRandomSubset(long[] originalList){
 		double probability = 0.5;
 		long[] subset = new long[originalList.length];
 		//every element has 50% change of being added to the sublist
@@ -56,7 +56,7 @@ public class Annealing implements SubsetSum{
 	}
 
 	//generate neighbor set
-	public static long[] generateRandomNeighbor(long[] originalList, long[] subset_s){
+	private long[] generateRandomNeighbor(long[] originalList, long[] subset_s){
 		//let subset_t be a copy of subset_s
 		long[] subset_t = new long[subset_s.length];
 		for (int i=0; i<subset_s.length; i++) {
@@ -96,18 +96,18 @@ public class Annealing implements SubsetSum{
 	}
 
 	//get residue for each subset
-	public static long getResidue(long[] list){
+	private long getResidue(long[] list){
 		long sum = 0;
 		long target = (long)(25*Math.pow(10,12));
 		for (int i=0; i<list.length; i++) {
 			sum += list[i];
 		}
-		long residue = target - sum;
+		long residue = Math.abs(target - sum);
 		return residue;
 	}
 
 	//get the smallest residue for all subsets
-	public static long getSmallestResidue(long[] originalList, long[] sublist, int iteration){
+	private long getSmallestResidue(long[] originalList, long[] sublist, int iteration){
 		long current_r = 0;
 		long neighbor_r = 0;
 		long smallest_r = (long)Math.pow(10,15); //give it a big number
@@ -115,13 +115,13 @@ public class Annealing implements SubsetSum{
 
 		for (int i=0; i<iteration; i++) {
 			//save the smallest residue of all current subsets
-			if (Math.abs(getResidue(current)) < Math.abs(smallest_r)) {
+			if (getResidue(current) < smallest_r) {
 				smallest_r = getResidue(current);
 			}
 			long[] neighbor = generateRandomNeighbor(originalList, current);
 
 			//If the neighbor has smaller residue, then make it the current subset.
-			if (Math.abs(getResidue(neighbor)) < Math.abs(getResidue(current))) {
+			if (getResidue(neighbor) < getResidue(current)) {
 				current = neighbor;
 			} else {
 				//If the neighbor has larger or equal residue, then with probability e-T, make it the current subset.
