@@ -6,19 +6,22 @@ import java.lang.Math;
 
 public class Annealing {
 
-	//constructor
-	public Annealing(){
-		System.out.println("This is the Simulated Annealing Algorithm: \n");
-	}
-
-	public static long Annealing(long[] arr, int iteration){
+	//implement interface
+	public long subSubSum(long k, long[] arr, int iteration){
+		// System.out.println("This is the Simulated Annealing Algorithm: \n");
 		long[] subset = generateRandomSubset(arr);
 		long smallest_r = getSmallestResidue(arr, subset, iteration);
 		return smallest_r;
 	}
 
+	// public static long Annealing(long[] arr, int iteration){
+	// 	long[] subset = generateRandomSubset(arr);
+	// 	long smallest_r = getSmallestResidue(arr, subset, iteration);
+	// 	return smallest_r;
+	// }
+
 	//generate list of 100 random numbers from 1 to 10^12
-	public static long[] generateRandomList(int num){
+	private long[] generateRandomList(int num){
 		long[] list = new long[num];
 		long leftLimit = 1;
 		long rightLimit = (long) Math.pow(10,12);
@@ -31,7 +34,7 @@ public class Annealing {
 	}
 
 	//print out the list
-	public static void printList(long[] list){
+	private void printList(long[] list){
 		for (int i=0; i<list.length ;i++ ) {
 			System.out.print(i + ": " + list[i] + "\n");
 		}
@@ -40,7 +43,7 @@ public class Annealing {
 
 	
 	//Choose a random subset of S as the current subset.
-	public static long[] generateRandomSubset(long[] originalList){
+	private long[] generateRandomSubset(long[] originalList){
 		double probability = 0.5;
 		long[] subset = new long[originalList.length];
 		//every element has 50% change of being added to the sublist
@@ -53,7 +56,7 @@ public class Annealing {
 	}
 
 	//generate neighbor set
-	public static long[] generateRandomNeighbor(long[] originalList, long[] subset_s){
+	private long[] generateRandomNeighbor(long[] originalList, long[] subset_s){
 		//let subset_t be a copy of subset_s
 		long[] subset_t = new long[subset_s.length];
 		for (int i=0; i<subset_s.length; i++) {
@@ -92,18 +95,20 @@ public class Annealing {
 		return subset_t;
 	}
 
-	public static long getResidue(long[] list){
+	//get residue for each neighbor
+	private long getResidue(long[] list){
 		long sum = 0;
 		long target = (long)(25*Math.pow(10,12));
 		for (int i=0; i<list.length; i++) {
 			sum += list[i];
 		}
-		long residue = target - sum;
+		long residue = Math.abs(target - sum);
 		return residue;
 	}
 
 	
-	public static long getSmallestResidue(long[] originalList, long[] sublist, int iteration){
+	//get the smallest residue
+	private long getSmallestResidue(long[] originalList, long[] sublist, int iteration){
 		long current_r = 0;
 		long neighbor_r = 0;
 		long smallest_r = (long)Math.pow(10,15); //give it a big number
@@ -111,13 +116,13 @@ public class Annealing {
 
 		for (int i=0; i<iteration; i++) {
 			//save the smallest residue of all current subsets
-			if (Math.abs(getResidue(current)) < Math.abs(smallest_r)) {
+			if (getResidue(current) < smallest_r) {
 				smallest_r = getResidue(current);
 			}
 			long[] neighbor = generateRandomNeighbor(originalList, current);
 
 			//If the neighbor has smaller residue, then make it the current subset.
-			if (Math.abs(getResidue(neighbor)) < Math.abs(getResidue(current))) {
+			if (getResidue(neighbor) < getResidue(current)) {
 				current = neighbor;
 			} else {
 				//If the neighbor has larger or equal residue, then with probability e-T, make it the current subset.
@@ -139,27 +144,30 @@ public class Annealing {
 	public static void main(String args[]){
 		Annealing annealing = new Annealing();
 		long[] arr = annealing.generateRandomList(100);
-        System.out.println("Random List:");
-        annealing.printList(arr);
+		long k_value = (long)(25*Math.pow(10,12));
+		long residue = annealing.subSubSum(k_value, arr, 100);
+		System.out.print("Residue: " + residue + "\n");
+ //        System.out.println("Random List:");
+ //        annealing.printList(arr);
 
-        //test random subset
-        System.out.println("\nRandom Subset:");
-        long[] sub = annealing.generateRandomSubset(arr);
-        annealing.printList(sub);
+ //        //test random subset
+ //        System.out.println("\nRandom Subset:");
+ //        long[] sub = annealing.generateRandomSubset(arr);
+ //        annealing.printList(sub);
 
-        long[] neighbor = annealing.generateRandomNeighbor(arr, sub);
-        annealing.printList(neighbor);
+ //        long[] neighbor = annealing.generateRandomNeighbor(arr, sub);
+ //        annealing.printList(neighbor);
 
-        System.out.println("\nTest residue:");
-        long residue = annealing.getResidue(sub);
-        System.out.print(residue);
+ //        System.out.println("\nTest residue:");
+ //        long residue = annealing.getResidue(sub);
+ //        System.out.print(residue);
 
-        System.out.println("\nTest smallest residue:");
-        long s_residue = annealing.getSmallestResidue(arr, sub, 100);
-        System.out.print("\nresult:" + s_residue + "\n");
+ //        System.out.println("\nTest smallest residue:");
+ //        long s_residue = annealing.getSmallestResidue(arr, sub, 100);
+ //        System.out.print("\nresult:" + s_residue + "\n");
 
-        long residue2 = Annealing(arr, 100);
-        System.out.print("\nresult2:" + residue2);
+ //        long residue2 = Annealing(arr, 100);
+ //        System.out.print("\nresult2:" + residue2);
 	}
 
 
