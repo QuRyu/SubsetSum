@@ -129,7 +129,7 @@ public class Annealing implements SubsetSum{
 				long exponentT = (getResidue(neighbor) - getResidue(current)) / (long)(Math.pow(10,11) * Math.pow(0.8,i/300));
 				long probability = (long)Math.exp(-exponentT);
 				//System.out.print("prob:" + probability);
-				if (probability >= 0.05) {
+				if (probability >= 0.5) {
 					current = neighbor;
 				}
 			}
