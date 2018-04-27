@@ -41,7 +41,7 @@ public class Annealing implements SubsetSum{
 		System.out.println();
 	}
 
-	
+
 	//Choose a random subset of S as the current subset.
 	private long[] generateRandomSubset(long[] originalList){
 		double probability = 0.5;
@@ -80,7 +80,7 @@ public class Annealing implements SubsetSum{
 			subset_t[index_i] = 0;
 		} else { subset_t[index_i] = originalList[index_i]; }
 
-		//if xj is in s, then with probability 0.5, remove it from t. 
+		//if xj is in s, then with probability 0.5, remove it from t.
 		//If xj is not in s, then with probability 0.5, add xj to t.
 		if (subset_s[index_j] != 0) {
 			if (Math.random() >= 0.5) {
@@ -106,7 +106,7 @@ public class Annealing implements SubsetSum{
 		return residue;
 	}
 
-	
+
 	//get the smallest residue
 	private long getSmallestResidue(long[] originalList, long[] sublist, int iteration){
 		long current_r = 0;
@@ -128,8 +128,8 @@ public class Annealing implements SubsetSum{
 				//If the neighbor has larger or equal residue, then with probability e-T, make it the current subset.
 				long exponentT = (getResidue(neighbor) - getResidue(current)) / (long)(Math.pow(10,11) * Math.pow(0.8,i/300));
 				long probability = (long)Math.exp(-exponentT);
-				//System.out.print("prob:" + probability);
-				if (probability >= 0.05) {
+				//System.out.println("prob:" + probability);
+				if (probability >= 0.5) {
 					current = neighbor;
 				}
 			}
