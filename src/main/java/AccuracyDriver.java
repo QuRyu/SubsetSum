@@ -9,9 +9,6 @@ public class AccuracyDriver {
 
     public static void main(String[] args) {
         populateList();
-        SubsetSum exha = new SubsetSumExhaustive();
-        long base_residue = exha.subSubSum(sum1, testSet1, testSet1.length);
-        System.out.println("Exhaustive Search Residue: " + base_residue);
 
         test("Random version", new RandomAlgo());
         test("Greedy Search", new Greedy());
@@ -38,7 +35,7 @@ public class AccuracyDriver {
 
         System.out.println("Residue: " + result);
 
-        System.out.println("Accuracy: " + base_residue/result + "%");
+        //System.out.println("Accuracy: " + base_residue/result + "%");
 
         System.out.println();
     }
