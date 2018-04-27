@@ -48,7 +48,7 @@ public class SpeedDriver {
 
         System.out.println("---------" + version + "----------");
 
-        System.out.println("Time: " + Timer.getRuntime() + "ms");
+        System.out.println("Time: " + Timer.getRuntime() + "µs");
 
         if (sequentialRuntime == 0)
             sequentialRuntime = Timer.getRuntime();
