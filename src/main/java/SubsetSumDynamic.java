@@ -3,9 +3,12 @@
 // optimized by using a 2-dimension array of length 2*k: the observation behind
 // this optimization is that the recurrence relation only uses the information from
 // current and previous row. All other rows do not need to be stored
+
+// The interface of dynamic implementation is that when the sum is present, it would
+// return 0; if not, -1.
 public class SubsetSumDynamic implements SubsetSum {
 
-    // TODO: 4/26/18 add documentation that dynamic version cannot handle long
+    // the public entry
     public long subSubSum(long k, long[] set,  int iteration) {
         if (isSumPresent((int)k, set))
             return 0;
@@ -13,7 +16,7 @@ public class SubsetSumDynamic implements SubsetSum {
             return -1;
     }
 
-    // the public method to solve the subset sum problem
+    // the method to solve the subset sum problem
     private boolean isSumPresent(int k, long[] set) {
         boolean[][] table = new boolean[2][(int)k];
         int curRow = 0; // points to the current row the method is manipulating over

@@ -11,6 +11,9 @@ import java.util.List;
  * One optimization to reduce the number of subsets generated is based on the observation
  * that only those each subsets whose sum is equal to or smaller than the desired sum should be kept.
  * Therefore elements and subsets whose sums are greater than desired sum k should be discarded.
+ *
+ * The interface of the exhaustive implementation works in a way that if the sum is present, the
+ * algorithm returns 0; if not, -1.
  */
 
 public class SubsetSumExhaustive implements SubsetSum {
@@ -18,15 +21,13 @@ public class SubsetSumExhaustive implements SubsetSum {
     public long subSubSum(long k, long[] set, int iteration) {
         List<List<Long>> subsets = new ArrayList<List<Long>>();
         isSumPresentHelper(subsets, set, set.length, k);
-        long residue = Long.MAX_VALUE;
 
         for (List<Long> subset :
                 subsets) {
-            long curResidue = Math.abs(sumList(subset) - k);
-            if (curResidue < residue)
-                residue = curResidue;
+            if (sumList(subset) == k)
+                return 0;
         }
-        return residue;
+        return -1;
     }
 
     private void isSumPresentHelper(List<List<Long>> subsets, long[] set, int n, long k) {
@@ -38,13 +39,15 @@ public class SubsetSumExhaustive implements SubsetSum {
             if (set[n-1] > k)
                 return;
 
-            List<Long> result;
+            ArrayList<Long> result;
             int len = subsets.size();
             for (int i = 0; i < len; i++) {
                 result = new ArrayList<Long>(subsets.get(i));
                 result.add(set[n-1]);
-                if (sumList(result) <= k)
+                if (sumList(result) <= k) {
+                    result.trimToSize();
                     subsets.add(result);
+                }
             }
         }
     }
