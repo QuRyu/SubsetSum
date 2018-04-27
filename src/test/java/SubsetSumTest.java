@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class SubsetSumTest {
 
@@ -46,13 +44,13 @@ public class SubsetSumTest {
             // test all combinations of a given set
             for (List<Integer> list:
                     testSetSubSets1){
-                assertTrue("expecting " + sumList(list) + ", with list " + list.toString(),
-                        sum.isSumPresent(sumList(list), toIntArr(list)));
+                assertEquals("expecting " + sumList(list) + ", with list " + list.toString(),
+                        0, sum.subSubSum(sumList(list), toIntArr(list), 1));
             }
 
             // test empty set
-            assertFalse(sum.isSumPresent(1, new int[0]));
-            assertTrue(sum.isSumPresent(0, new int[0]));
+            //assertFalse(sum.isSumPresent(1, new int[0]));
+            //assertTrue(sum.isSumPresent(0, new int[0]));
 
         }
 
@@ -83,8 +81,8 @@ public class SubsetSumTest {
         return sum;
     }
 
-    private int[] toIntArr(List<Integer> list) {
-        int[] arr = new int[list.size()];
+    private long[] toIntArr(List<Integer> list) {
+        long[] arr = new long[list.size()];
         for (int i = 0; i < list.size(); i++) {
             arr[i] = list.get(i);
         }
